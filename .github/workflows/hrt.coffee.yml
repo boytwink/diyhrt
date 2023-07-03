@@ -1,0 +1,39 @@
+name: HRT.coffee
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 4'
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for 404
+        run: |
+          url="https://hrt.coffee"
+          status=$(curl -o /dev/null -s -w "%{http_code}" $url)
+          if [ $status -eq 404 ]; then
+            echo "Got 404. Exiting."
+            curl -H "Content-Type: application/json" -d '{"content": "${{ secrets.DISCORD_USER_ID }} $URL returned 404"}' ${{ secrets.WEBHOOK_URL }}
+            exit 1
+          fi
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install httrack
+      - name: Download hrt.coffee
+        run: |
+          rm -rf hrt.coffee
+          mkdir httrack && cd httrack
+          httrack https://hrt.coffee -s0 # icons don't save with wget for some reasonn
+          mv hrt.coffee .. && cd ..
+      - name: Commit changes
+        if: ${{ success() }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: hrt.coffee
+          pull: "--rebase --autostash ."
+          message: "[automated] update hrt.coffee"
+          default_author: github_actions

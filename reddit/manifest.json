@@ -1,0 +1,23 @@
+{
+	"name": "Libreddit",
+	"short_name": "Libreddit",
+	"display": "standalone",
+	"background_color": "#1f1f1f",
+	"description": "An alternative private front-end to Reddit",
+	"theme_color": "#1f1f1f",
+	"icons": [
+		{
+			"src": "logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "apple-touch-icon.png",
+			"sizes": "180x180"
+		},
+		{
+			"src": "favicon.ico",
+			"sizes": "32x32"
+		}
+	]
+}
