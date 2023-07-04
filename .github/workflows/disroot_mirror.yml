@@ -1,4 +1,4 @@
-name: mirror repository
+name: Mirror to Disroot
 
 on:
   workflow_dispatch:
