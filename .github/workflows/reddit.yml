@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: check for 404
         run: |
-          urls=("https://groups.io/g/MTFHRT/wiki/" "https://groups.io/g/MTFHRT/topic/80225302/" "https://groups.io/g/MTFHRT/topic/79606271/")
+          urls=("https://libreddit.pussthecat.org/r/TransDIY/wiki/pharmacies" "https://libreddit.pussthecat.org/r/TransDIY/wiki")
           failed=""
           for url in "${urls[@]}"; do
             status=$(curl -o /dev/null -s -w "%{http_code}" $url)
